@@ -5,7 +5,7 @@ const cors = require('cors')
 app.use(cors())
 app.use(express.json())
 
-const db = require('./database/database.js')
+const db = require('./database/users.js')
 const account = require('./routes/account.js')
 
 db.connectToSql()
