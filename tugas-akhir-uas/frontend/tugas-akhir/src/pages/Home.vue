@@ -1,3 +1,4 @@
 <template>
-  <div>HOME</div>
+  <div>INI TAMPILAN HOME SEMENTARA</div>
 </template>
+
