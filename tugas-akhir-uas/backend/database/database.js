@@ -34,7 +34,7 @@ const createDb = ()=>{
       allowNull: false,
       unique:true
     },
-    password: {
+    hash: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -50,26 +50,23 @@ const createDb = ()=>{
   });
 };
 
-const findRow = async (user)=>{
+const findUser = async (user)=>{
   const find = await users.findOne({ where : {name : user}})
-  if(find === null){
-    console.log('Not found!')
-    return false
-  } else{
-    console.log(find)
-    return true
-  }
+  console.log("find :",find)
+  return find
 }
 
-const addNewRow = async (name, password)=>{
-  if(await findRow(name)){
+const addNewRow = async (name, hash)=>{
+  if(await findUser(name)){
     console.log("sini")
     return false
   } 
 
+  console.log()
+
   users.create({
     name,
-    password
+    hash
   })
   .then(res => {
     console.log(res)
@@ -84,5 +81,6 @@ module.exports = {
   sequelize,
   connectToSql,
   createDb,
-  addNewRow
+  addNewRow,
+  findUser
 };
