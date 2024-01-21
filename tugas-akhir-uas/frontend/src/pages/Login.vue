@@ -1,11 +1,12 @@
 <template>
   <div class="mx-auto max-w-6xl px-4">
+    <h1 class="font-bold text-2xl mb-3">Login</h1>
     <div>Username</div>
     <input type="text" id="uname" name="username" ref="uname">
     <div>Password</div>
     <input type="password" id="pass" name="password" ref="pass">
-    <div>{{ msg }}</div> 
-    <button @click.prevent="login">login</button>
+    <div class="pt-3 text-red-600">{{ msg }}</div> 
+    <button class="mt-3" @click.prevent="login">login</button>
   </div>
 </template>
 
