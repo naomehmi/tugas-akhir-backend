@@ -20,7 +20,7 @@ const upload = require('./routes/uploadProducts.js')
 const changeAccountSettings = require('./routes/changeAccountSettings.js')
 const home = require('./routes/home.js')
 const editProducts = require('./routes/editProducts.js')
-const chatRouter = require('./routes/chat')(pool)
+const chatRouter = require('./routes/chat')
 
 users.createDb()
 products.createDb()
