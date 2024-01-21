@@ -1,0 +1,13 @@
+POST http://localhost:3000/login
+Authorization: YWRtaW46VWgyTm8xRkpBdmNfYUYxNUtkMjU2MzIxNTg2MjNsbzkwNXR0Z0tvcFJHQm1zU1I
+
+###
+
+POST http://localhost:3000/new_name
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJwaWMiOiIuLi8uLi9wdWJsaWMvdXBsb2Fkcy9wcm9maWxlL2RlZmF1bHQuanBnIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzA1NzgyNzE4LCJleHAiOjE3MDU3ODk5MTh9.7d-Cn4VjUQKpEUW21sIlgAv7eSOlCDhwm7WS7WqE-Ek
+Content-Type: text/plain
+
+naomi
+
+###
+
