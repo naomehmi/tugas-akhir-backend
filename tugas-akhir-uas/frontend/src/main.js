@@ -37,7 +37,12 @@ const authStore = useAuthStore();
 router.beforeEach((to, from) => {
   if ((to.fullPath === "/login" || to.fullPath === "/register") && authStore.isLoggedIn) {
     return "/";
-  } else {
+  } else if((to.fullPath == "/edit" || to.fullPath.includes("/change/") || to.fullPath === "/upload") && authStore.isAdmin() === "user"){
+    return "/"
+  } else if(to.fullPath === "/profile" && !authStore.isLoggedIn){
+    return "/"
+  } 
+  else {
     return true;
   }
 });
