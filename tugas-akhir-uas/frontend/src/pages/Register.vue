@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mx-auto max-w-6xl px-4">
     <div>Username</div>
     <input type="text" id="uname" name="username" ref="uname">
     <div>Password</div>
