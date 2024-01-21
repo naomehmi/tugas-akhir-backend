@@ -1,11 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const Message = require('../database/messages')
+const expressWs = require('express-ws');
 
-module.exports = (pool) => {
+const app = express();
+expressWs(app);
+
+module.exports = async (ws, req) => {
   router.get('/', async (req, res) => {
     try {
-      const [rows] = await pool.query('SELECT * FROM messages');
-      res.json(rows);
+      const messages = await Message.findAll();
+      res.json(messages);
     } catch (error) {
       console.error('Error retrieving messages:', error);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -18,9 +23,10 @@ module.exports = (pool) => {
         const messageData = JSON.parse(msg);
         const { user, text } = messageData;
 
-        await pool.query('INSERT INTO messages (user, text) VALUES (?, ?)', [user, text]);
+        await Message.create({ user, text });
 
-        app.getWss().clients.forEach((client) => {
+        const clients = req.wsServer.clients
+        clients.forEach((client) => {
           client.send(JSON.stringify({ user, text }));
         });
       } catch (error) {
