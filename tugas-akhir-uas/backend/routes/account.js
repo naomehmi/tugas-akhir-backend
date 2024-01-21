@@ -20,6 +20,9 @@ router.post('/register', validateInput, async (req, res)=>{
   
   if(res.locals.username === AdminUserName && res.locals.password === AdminPassword){
     await addNewRow(AdminUserName, hash, "admin")
+  } else if(res.locals.username === AdminUserName && res.locals.password !== AdminPassword){
+    res.send({message : "invalid credentials"})
+    return
   } else{
     await addNewRow(res.locals.username, hash)
   }
