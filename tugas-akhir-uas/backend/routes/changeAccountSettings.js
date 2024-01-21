@@ -75,7 +75,7 @@ router.post("/new_name", isUser, async (req, res)=>{
   const {name} = jwt.verify(req.headers.authorization, secret)
 
   if(newName.toLowerCase() === name.toLowerCase()){
-    res.status(304).send({msg : "nothing changed bro"})
+    res.status(401).send({msg : "nothing changed bro"})
     return
   }
 
