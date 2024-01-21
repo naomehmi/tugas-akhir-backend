@@ -18,6 +18,7 @@
           </div>
           <input type="submit" value="Change username now" />
         </form>
+        <div class="text-red-600">{{ msg1 }}</div>
 
         <h3>Change Password</h3>
         <form @submit.prevent="changePass" class="space-y-2">
@@ -31,6 +32,7 @@
           </div>
           <input type="submit" value="Change password now" />
         </form>
+        <div class="text-red-600">{{ msg2 }}</div>
 
         <h3>Profile Picture</h3>
         <form @submit.prevent="changePic" enctype="multipart/form-data">
@@ -43,9 +45,7 @@
           required
           />
           <input type="submit" value="Change profile picture now" />
-          <div>
-
-          </div>
+          <div class="text-red-600">{{ msg3 }}</div>
         </form>
       </div>
     </div>
@@ -61,6 +61,9 @@ import { Buffer } from "buffer";
 
 const router = useRouter();
 const authStore = useAuthStore();
+const msg1 = ref(null)
+const msg2 = ref(null)
+const msg3 = ref(null)
 
 const logout = async () => {
   authStore.removeToken()
@@ -79,8 +82,9 @@ const changeName = async () => {
   })
 
   const data = await response.json()
+  msg1.value = data.msg
 
-  authStore.setToken(data.updatedToken)
+  if(response.ok) authStore.setToken(data.updatedToken)
 
   router.go(0)
 };
@@ -89,7 +93,7 @@ const changePass = async () => {
   const oldPass = document.getElementById("oldPass").value;
   const newPass = document.getElementById("newPass").value;
 
-  await fetch("http://localhost:3000/new_pass", {
+  const passChanged = await fetch("http://localhost:3000/new_pass", {
     method: "POST",
     headers : {
       "Authorization" : authStore.token
@@ -97,8 +101,9 @@ const changePass = async () => {
     body : Buffer.from(`${oldPass}:${newPass}`, 'utf8').toString('base64')
   });
 
-  const data = await response.json()
-  authStore.setToken(data.updatedToken)
+  const data = await passChanged.json()
+  if(passChanged.ok) authStore.setToken(data.updatedToken)
+  msg2.value = data.msg
   router.go(0)
 };
 
@@ -116,10 +121,12 @@ const changePic = async () => {
   });
 
   const res = await photoChanged.json();
-  authStore.setToken(res.updatedToken);
+  if(photoChanged.ok) authStore.setToken(res.updatedToken);
   console.log(res);
 
-  window.location.reload();
+  msg3.value = data.msg
+
+  router.go(0);
 };
 
 onMounted(async () => {
