@@ -16,3 +16,6 @@ npm run dev
 
 - users can view products
 - admin can perform crud operations to the database
+- notes:
+  - css is still imperfect
+  - password change is still buggy
